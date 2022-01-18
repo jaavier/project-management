@@ -22,26 +22,6 @@ const SubMenu = ({ items, setMenu }) => {
     </div>
 }
 
-const Item = ({ items }) => {
-    if (!items) return null;
-
-    return <div className="">
-        {
-            items.map(({ to, handleClick, text }, index) => {
-                return <div className="p-3 text-center" key={index}>
-                    {
-                        to ? <Link to={to}>
-                            <span className="text-sm font-light">{text}</span>
-                        </Link> : <button onClick={handleClick}>
-                            <span className="text-sm font-light">{text}</span>
-                        </button>
-                    }
-                </div>
-
-            })
-        }
-    </div>
-}
 
 export default function Navbar(props) {
     const [menu, setMenu] = useState('');
