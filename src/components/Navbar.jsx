@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const SubMenu = ({ items, setMenu }) => {
     if (!items) return null;
 
-    return <div className="absolute bg-white border w-32 right-10">
+    return <div className="absolute bg-white border w-32 ">
         {
             items.map(({ to, handleClick, text }, index) => {
                 return <div className="p-3 text-center" onClick={() => setMenu('')} key={index}>
@@ -48,7 +48,7 @@ export default function Navbar(props) {
                     <span className="text-base">Project Managment</span>
                 </div>
                 <div className="flex absolute right-5">
-                    <div className="ml-2 px-4">
+                    <div className="ml-2 px-4" onClick={() => setMenu('')}>
                         <Link to="/">
                             <span className="text-sm">Home</span>
                         </Link>
