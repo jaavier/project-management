@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Container from './components/Container';
 import Navbar from './components/Navbar';
-import Home from './components/pages/Home';
-import CreateProject from './components/pages/Projects/CreateProject';
-import ProjectsList from './components/pages/Projects/ProjectsList';
-import Profile from './components/pages/Settings/Profile';
-import Notifications from './components/pages/Settings/Notifications';
+import Home from './pages/Home';
+import CreateProject from './pages/Projects/CreateProject';
+import ProjectsList from './pages/Projects/ProjectsList';
+import Profile from './pages/Settings/Profile';
+import Notifications from './pages/Settings/Notifications';
 
 function App() {
 	return (
