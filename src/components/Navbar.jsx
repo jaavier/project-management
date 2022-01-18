@@ -16,7 +16,6 @@ const SubMenu = ({ items, setMenu }) => {
                         </button>
                     }
                 </div>
-
             })
         }
     </div>
@@ -37,8 +36,8 @@ export default function Navbar(props) {
         to: '/profile',
         text: 'Profile'
     }, {
-        to: '/alerts',
-        text: 'Alerts'
+        to: '/notifications',
+        text: 'Notifications'
     }]
 
     return (
@@ -62,9 +61,9 @@ export default function Navbar(props) {
                     </div>
                     <div className="ml-2 px-4">
                         <button onClick={() => setMenu(menu === 'settings' ? '' : 'settings')}>
-                            <Link to="/">
+                            <button>
                                 <span className="text-sm">Settings</span>
-                            </Link>
+                            </button>
                         </button>
                         {
                             menu === 'settings' ? <SubMenu items={subMenuSettings} setMenu={setMenu} /> : null
