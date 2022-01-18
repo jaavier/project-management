@@ -1,36 +1,51 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 
-const SubMenu = ({ items }) => {
+const SubMenu = ({ items, setMenu }) => {
     if (!items) return null;
 
-    return <div className="absolute bg-white border w-32">
+    return <div className="absolute bg-white border w-32 right-10">
         {
-            items.map(({ to, text }, index) => {
-                return <div className="p-3 text-center" key={index}>
-                    <Link to={to}>
-                        <span className="text-sm font-light">{text}</span>
-                    </Link>
+            items.map(({ to, handleClick, text }, index) => {
+                return <div className="p-3 text-center" onClick={() => setMenu('')} key={index}>
+                    {
+                        to ? <Link to={to}>
+                            <span className="text-sm font-light">{text}</span>
+                        </Link> : <button onClick={handleClick}>
+                            <span className="text-sm font-light">{text}</span>
+                        </button>
+                    }
                 </div>
 
             })
         }
     </div>
+}
 
+const Item = ({ items }) => {
+    if (!items) return null;
+
+    return <div className="">
+        {
+            items.map(({ to, handleClick, text }, index) => {
+                return <div className="p-3 text-center" key={index}>
+                    {
+                        to ? <Link to={to}>
+                            <span className="text-sm font-light">{text}</span>
+                        </Link> : <button onClick={handleClick}>
+                            <span className="text-sm font-light">{text}</span>
+                        </button>
+                    }
+                </div>
+
+            })
+        }
+    </div>
 }
 
 export default function Navbar(props) {
     const [menu, setMenu] = useState('');
-    const menuLinks = [{
-        to: '/',
-        text: 'Home'
-    }, {
-        handleClick: () => setMenu('projects'),
-        text: 'Projects'
-    }, {
-        handleClick: () => setMenu('Settings'),
-        text: 'Settings'
-    }]
+
     const subMenuProjects = [{
         to: '/projects',
         text: 'All Projects'
@@ -44,7 +59,8 @@ export default function Navbar(props) {
     }, {
         to: '/alerts',
         text: 'Alerts'
-    },]
+    }]
+
     return (
         <div className="w-full border border-gray-900 relative p-4 my-5 rounded">
             <div className="flex items-center">
@@ -62,7 +78,7 @@ export default function Navbar(props) {
                             <span className="text-sm">Projects</span>
                         </button>
                         {
-                            menu === 'projects' ? <SubMenu items={subMenuProjects} /> : null}
+                            menu === 'projects' ? <SubMenu items={subMenuProjects} setMenu={setMenu} /> : null}
                     </div>
                     <div className="ml-2 px-4">
                         <button onClick={() => setMenu(menu === 'settings' ? '' : 'settings')}>
@@ -71,9 +87,8 @@ export default function Navbar(props) {
                             </Link>
                         </button>
                         {
-                            menu === 'settings' ? <SubMenu items={subMenuSettings} /> : null
+                            menu === 'settings' ? <SubMenu items={subMenuSettings} setMenu={setMenu} /> : null
                         }
-
                     </div>
                 </div>
 
