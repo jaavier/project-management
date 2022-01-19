@@ -60,11 +60,11 @@ export default function Navbar(props) {
                             menu === 'projects' ? <SubMenu items={subMenuProjects} setMenu={setMenu} /> : null}
                     </div>
                     <div className="ml-2 px-4">
-                        <button onClick={() => setMenu(menu === 'settings' ? '' : 'settings')}>
+                        <div onClick={() => setMenu(menu === 'settings' ? '' : 'settings')}>
                             <button>
                                 <span className="text-sm">Settings</span>
                             </button>
-                        </button>
+                        </div>
                         {
                             menu === 'settings' ? <SubMenu items={subMenuSettings} setMenu={setMenu} /> : null
                         }
