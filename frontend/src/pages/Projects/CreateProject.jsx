@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import TextField from '../../components/Forms/TextField';
 import Milestone from '../../components/Milestone';
+import useApi from '../../hooks/useApi';
+import { DateTime } from 'luxon';
 
 export default function CreateProject(props) {
+    const { post, responses } = useApi('projects');
     const [project, setProject] = useState({
         name: '',
         image: '',
@@ -14,16 +17,21 @@ export default function CreateProject(props) {
     })
 
     const [milestoneCounter, setMilestoneCounter] = useState(0);
-    console.log("🚀 ~ file: CreateProject.jsx ~ line 17 ~ CreateProject ~ milestoneCounter", milestoneCounter)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProject({ ...project, [name]: value })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(project);
+        try {
+            const response = await post({
+                body: project
+            });
+        } catch (e) {
+            alert("ERROR")
+        }
     }
 
     const addMilestone = (e) => {
@@ -31,8 +39,13 @@ export default function CreateProject(props) {
         setMilestoneCounter(milestoneCounter + 1);
     }
 
-    const saveMilestone = (milestone) => {
-        setProject({ ...project, milestones: [...project.milestones, milestone] });
+    const saveMilestone = (e, milestone, index) => {
+        e.preventDefault();
+        const allMilestones = project.milestones;
+        allMilestones[index] = { ...milestone, deadLine: DateTime.fromISO(milestone.deadLine) }
+        setProject({
+            ...project, milestones: allMilestones
+        })
     }
 
     return (
@@ -68,7 +81,7 @@ export default function CreateProject(props) {
                 <div className="form-group">
                     {
                         Array(milestoneCounter).fill(0).map((_, index) => {
-                            return <Milestone key={index} saveMilestone={saveMilestone} addMilestone={addMilestone} milestoneCounter={milestoneCounter} />
+                            return <Milestone index={index} saveMilestone={saveMilestone} addMilestone={addMilestone} milestoneCounter={milestoneCounter} />
                         })
                     }
                 </div>

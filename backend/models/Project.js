@@ -24,8 +24,7 @@ const Schema = new mongoose.Schema({
 		ref: 'Milestones'
 	},
 	deadLine: {
-		type: Date,
-		required: true
+		type: Date
 	},
 	createdAt: {
 		type: Date,

@@ -1,17 +1,22 @@
 const Project = require('../models/project');
+const Milestone = require('../models/Milestones');
 const { Router } = require('express');
 const router = Router();
 
 router.get('/', async (req, res) => {
-	res.json({
-		message: 'Hello World from Projects'
-	});
+	const projects = await Project.find({ deleted: false }).populate('milestones');
+	res.json(projects);
 });
 
 router.post('/', async (req, res) => {
-	const { name, image, url, github, technologies, description, milestones } = req.body;
+	const ids = [];
 	try {
-		const newProject = new Project(req.body);
+		for (const milestone of req.body.milestones) {
+			const newMilestone = new Milestone(milestone);
+			const result = await newMilestone.save();
+			ids.push(result._id);
+		}
+		const newProject = new Project({ ...req.body, milestones: ids });
 		await newProject.save();
 		res.json({
 			message: 'Project created successfully',
