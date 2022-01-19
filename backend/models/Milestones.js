@@ -30,8 +30,7 @@ const Schema = new mongoose.Schema({
 	project: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Project'
-	},
-	required: true
+	}
 });
 
 module.exports = mongoose.model('Milestones', Schema);

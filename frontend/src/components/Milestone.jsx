@@ -1,18 +1,14 @@
 import { useState } from 'react';
 import TextField from './Forms/TextField';
+import { DateTime } from 'luxon';
 
 export default function Milestone(props) {
-    const { saveMilestone, addMilestone, milestoneCounter } = props;
+    const { saveMilestone, addMilestone, milestoneCounter, index } = props;
     const [milestone, setMilestone] = useState({
         title: '',
         description: '',
         deadLine: '',
         tags: '',
-        createdAt: '',
-        updatedAt: '',
-        deletedAt: '',
-        deleted: '',
-        project: ''
     });
 
     const handleChange = (e) => {
@@ -40,7 +36,7 @@ export default function Milestone(props) {
                 </div>
                 <div className="form-group flex my-4">
                     <div className="mr-3">
-                        <button className="bg-green-700 text-green-100 p-2 rounded-lg text-xs font-semibold" onClick={() => saveMilestone(milestone)}>Save</button>
+                        <button className="bg-green-700 text-green-100 p-2 rounded-lg text-xs font-semibold" onClick={(e) => saveMilestone(e, milestone, index)}>Save</button>
                     </div>
                     <div className="">
                         <button className="bg-blue-700 text-blue-100 p-2 rounded-lg text-xs font-semibold" onClick={addMilestone}>Add new</button>
