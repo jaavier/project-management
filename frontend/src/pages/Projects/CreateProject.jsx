@@ -1,34 +1,7 @@
 import { useState } from 'react';
+import TextField from '../../components/Forms/TextField';
+import Milestone from '../../components/Milestone';
 
-const TextField = (props) => {
-    const className = 'form-control border border-gray-700 rounded-sm p-1 outline-none w-full';
-    return (
-        <div className="mb-2 mr-5 flex-1">
-            <div className="pb-2">
-                <label htmlFor={props.name} className="font-light">{props.label}</label>
-            </div>
-            <div className="flex-1">
-                {
-                    !props.multiline ? <input
-                        className={className}
-                        type={props.type}
-                        name={props.name}
-                        value={props.value}
-                        onChange={props.onChange}
-                        placeholder={props.placeholder}
-                    /> : <textarea
-                        className={className}
-                        name={props.name}
-                        value={props.value}
-                        onChange={props.onChange}
-                        rows={props.rows}
-                        placeholder={props.placeholder}
-                    />
-                }
-            </div>
-        </div>
-    );
-}
 export default function CreateProject(props) {
     const [project, setProject] = useState({
         name: '',
@@ -36,8 +9,12 @@ export default function CreateProject(props) {
         url: '',
         github: '',
         technologies: '',
-        description: ''
+        description: '',
+        milestones: [],
     })
+
+    const [milestoneCounter, setMilestoneCounter] = useState(0);
+    console.log("🚀 ~ file: CreateProject.jsx ~ line 17 ~ CreateProject ~ milestoneCounter", milestoneCounter)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -49,10 +26,19 @@ export default function CreateProject(props) {
         console.log(project);
     }
 
+    const addMilestone = (e) => {
+        e.preventDefault();
+        setMilestoneCounter(milestoneCounter + 1);
+    }
+
+    const saveMilestone = (milestone) => {
+        setProject({ ...project, milestones: [...project.milestones, milestone] });
+    }
+
     return (
         <div>
             <div className="mb-5">
-                <h1 className="text-lg font-semibold">Create Project {project.url}</h1>
+                <h1 className="text-lg font-semibold">Create Project</h1>
             </div>
             <form onSubmit={handleSubmit}>
                 <div className="form-group flex">
@@ -66,6 +52,25 @@ export default function CreateProject(props) {
                 </div>
                 <div className="form-group">
                     <TextField multiline={true} rows="5" label="Description" name="description" placeholder="Project Description" value={project.description} onChange={handleChange} />
+                </div>
+                <div className="form-group mb-2 flex items-center">
+                    <div>
+                        <h1 className="text-lg font-semibold">Milestones</h1>
+                    </div>
+                    <div className="ml-2">
+                        <button
+                            className="bg-blue-700 text-blue-100 p-2 rounded-lg text-xs font-semibold"
+                            onClick={addMilestone}>
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div className="form-group">
+                    {
+                        Array(milestoneCounter).fill(0).map((_, index) => {
+                            return <Milestone key={index} saveMilestone={saveMilestone} addMilestone={addMilestone} milestoneCounter={milestoneCounter} />
+                        })
+                    }
                 </div>
                 <div>
                     <button type="submit" className="bg-blue-700 text-blue-100 p-3  rounded-lg text-sm font-semibold">Submit</button>
