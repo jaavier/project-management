@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const TextField = (props) => {
     const className = 'form-control border border-gray-700 rounded-sm p-1 outline-none w-full';
     return (
@@ -12,12 +14,12 @@ const TextField = (props) => {
                         type={props.type}
                         name={props.name}
                         value={props.value}
-                        onChange={props.handleChange}
+                        onChange={props.onChange}
                     /> : <textarea
                         className={className}
                         name={props.name}
                         value={props.value}
-                        onChange={props.handleChange}
+                        onChange={props.onChange}
                         rows={props.rows}
                     />
                 }
@@ -26,25 +28,42 @@ const TextField = (props) => {
     );
 }
 export default function CreateProject(props) {
+    const [project, setProject] = useState({
+        name: '',
+        image: '',
+        url: '',
+        github: '',
+        technologies: '',
+        description: ''
+    })
+
     const handleChange = (e) => {
+        const { name, value } = e.target;
+        setProject({ ...project, [name]: value })
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(project);
+    }
+
     return (
         <div>
             <div className="mb-5">
-                <h1 className="text-lg font-semibold">Create Project</h1>
+                <h1 className="text-lg font-semibold">Create Project {project.url}</h1>
             </div>
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group flex">
-                    <TextField type="text" label="Project Name" name="projectName" placeholder="Project Name" value={props.projectName} onChange={handleChange} />
-                    <TextField type="text" label="projectImage" name="projectImage" placeholder="Project Image" value={props.projectImage} onChange={handleChange} />
+                    <TextField type="text" label="projectName" name="name" placeholder="Project Name" value={project.name} onChange={handleChange} />
+                    <TextField type="text" label="projectImage" name="image" placeholder="Project Image" value={project.image} onChange={handleChange} />
                 </div>
                 <div className="form-group flex">
-                    <TextField type="text" label="projectUrl" name="projectUrl" placeholder="Project Url" value={props.projectUrl} onChange={handleChange} />
-                    <TextField type="text" label="projectGithub" name="projectGithub" placeholder="Project Github" value={props.projectGithub} onChange={handleChange} />
-                    <TextField type="text" label="projectTechnologies" name="projectTechnologies" placeholder="Project Technologies" value={props.projectTechnologies} onChange={handleChange} />
+                    <TextField type="text" label="projectUrl" name="url" placeholder="Project Url" value={project.url} onChange={handleChange} />
+                    <TextField type="text" label="projectGithub" name="github" placeholder="Project Github" value={project.github} onChange={handleChange} />
+                    <TextField type="text" label="projectTechnologies" name="technologies" placeholder="Project Technologies" value={project.technologies} onChange={handleChange} />
                 </div>
                 <div className="form-group">
-                    <TextField multiline={true} rows="5" label="projectDescription" name="projectDescription" placeholder="Project Description" value={props.projectDescription} onChange={handleChange} />
+                    <TextField multiline={true} rows="5" label="projectDescription" name="description" placeholder="Project Description" value={project.description} onChange={handleChange} />
                 </div>
                 <div>
                     <button type="submit" className="bg-blue-700 text-blue-100 p-3  rounded-lg text-sm font-semibold">Submit</button>
