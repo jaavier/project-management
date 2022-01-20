@@ -7,10 +7,11 @@ import ProjectsList from './pages/Projects/ProjectsList';
 import Profile from './pages/Settings/Profile';
 import Notifications from './pages/Settings/Notifications';
 import ViewProject from './pages/Projects/ViewProject';
+import Modal from './components/Modal';
 
 function App() {
 	return (
-		<div className="">
+		<div className="relative">
 			<Container>
 				<BrowserRouter>
 					<Navbar />
@@ -26,6 +27,7 @@ function App() {
 					</div>
 				</BrowserRouter>
 			</Container>
+			<Modal />
 		</div>
 	);
 }
