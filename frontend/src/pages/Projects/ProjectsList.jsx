@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
 import useApi from '../../hooks/useApi';
+import { Link } from 'react-router-dom';
 
 
 const ProjectTemplate = (props) => {
@@ -15,9 +16,13 @@ const ProjectTemplate = (props) => {
             <div className="flex justify-between">
                 <div className="flex-1">
                     <div className="">
-                        <h1 className="text-lg font-semibold">{props.name}</h1>
+                        <h1 className="text-lg font-semibold">
+                            <Link to={`/projects/${props._id}`}>
+                                {props.name}
+                            </Link>
+                        </h1>
                     </div>
-                    <div className="h-24 py-2">
+                    <div className="py-2">
                         <p className="text-gray-700 text-base">
                             {props.description}
                         </p>
@@ -41,7 +46,7 @@ const ProjectTemplate = (props) => {
                     <div className="text-center">
                         <h1 className="text-lg font-semibold">Milestones</h1>
                     </div>
-                    <div className="h-24 p-3">
+                    <div className="p-3">
                         <div className="flex items-center">
                             <div className="my-3 flex-1">
                                 <div className="text-3xl text-center">

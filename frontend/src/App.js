@@ -6,6 +6,7 @@ import CreateProject from './pages/Projects/CreateProject';
 import ProjectsList from './pages/Projects/ProjectsList';
 import Profile from './pages/Settings/Profile';
 import Notifications from './pages/Settings/Notifications';
+import ViewProject from './pages/Projects/ViewProject';
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/projects" element={<ProjectsList />} />
+							<Route path="/projects/:projectId" element={<ViewProject />} />
 							<Route path="/projects/create" element={<CreateProject />} />
 							<Route path="/profile" element={<Profile />} />
 							<Route path="/notifications" element={<Notifications />} />

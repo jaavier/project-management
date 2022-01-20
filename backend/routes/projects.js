@@ -3,9 +3,18 @@ const Milestone = require('../models/Milestones');
 const { Router } = require('express');
 const router = Router();
 
-router.get('/', async (req, res) => {
-	const projects = await Project.find({ deleted: false }).populate('milestones');
-	res.json(projects);
+router.get('/:projectId?', async (req, res) => {
+	const { projectId } = req.params;
+	const filter = { deleted: false };
+	if (projectId) filter._id = projectId;
+	try {
+		const projects = await Project.find(filter).populate('milestones');
+		res.json(projects);
+	} catch (e) {
+		res.json({
+			error: 'Something went wrong'
+		});
+	}
 });
 
 router.post('/', async (req, res) => {

@@ -44,7 +44,7 @@ export default function Navbar(props) {
         <div className="w-full border border-gray-900 relative p-4 my-5 rounded">
             <div className="flex items-center">
                 <div className="">
-                    <span className="text-base">Project Managment</span>
+                    <span className="text-base">Project Management</span>
                 </div>
                 <div className="flex absolute right-5">
                     <div className="ml-2 px-4" onClick={() => setMenu('')}>
