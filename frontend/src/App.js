@@ -13,7 +13,7 @@ function App() {
 			<Container>
 				<BrowserRouter>
 					<Navbar />
-					<div className="p-4 border border-gray-900 rounded my-5 shadow-slate-400 shadow-2xl">
+					<div className="py-4 rounded my-5 shadow-blue-100 shadow-3xl">
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/projects" element={<ProjectsList />} />

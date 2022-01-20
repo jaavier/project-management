@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const SubMenu = ({ items, setMenu }) => {
     if (!items) return null;
 
-    return <div className="absolute bg-white border w-32 ">
+    return <div className="absolute bg-white border w-32 z-10">
         {
             items.map(({ to, handleClick, text }, index) => {
-                return <div className="p-3 text-center" onClick={() => setMenu('')} key={index}>
+                return <div className="p-4 text-center" onClick={() => setMenu('')} key={index}>
                     {
                         to ? <Link to={to}>
                             <span className="text-sm font-light">{text}</span>
